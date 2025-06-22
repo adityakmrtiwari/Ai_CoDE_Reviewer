@@ -45,7 +45,7 @@ function CodeReview({ user }) {
       const data = await response.json();
 
       if (response.ok) {
-        setReview(data.review);
+        setReview(data.result);
         toast.success('Code review completed! 🎉');
       } else {
         setReview("⚠️ Error: " + (data.message || 'Failed to get review'));
