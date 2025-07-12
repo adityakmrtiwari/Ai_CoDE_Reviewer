@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "axios": "^1.9.0",
     "highlight.js": "^11.11.1",
     "prismjs": "^1.30.0",
     "react": "^19.1.0",
@@ -33,6 +32,7 @@
     "globals": "^16.0.0",
     "postcss": "^8.5.4",
     "tailwindcss": "^3.4.17",
+    "terser": "^5.43.1",
     "vite": "^6.3.5"
   }
 }

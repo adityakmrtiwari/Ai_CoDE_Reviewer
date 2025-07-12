@@ -8,7 +8,7 @@ import 'highlight.js/styles/atom-one-dark.css';
 import { toast } from 'react-toastify';
 import { API_ENDPOINTS } from './config/api';
 
-function CodeReview({ user }) {
+function CodeReview() {
   const [code, setCode] = useState("def sum():\n  return a + b\n");
   const [review, setReview] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -18,11 +18,6 @@ function CodeReview({ user }) {
   }, []);
 
   const reviewCode = async () => {
-    if (!user) {
-      toast.error('Please log in to review code');
-      return;
-    }
-
     if (!code.trim()) {
       toast.error('Please enter some code to review');
       return;
@@ -32,12 +27,10 @@ function CodeReview({ user }) {
     setReview("");
 
     try {
-      const token = localStorage.getItem('token');
       const response = await fetch(API_ENDPOINTS.CODE_REVIEW, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({ code })
       });
@@ -81,11 +74,9 @@ function CodeReview({ user }) {
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
           AI Code Reviewer
         </span>
-        {user && (
-          <div className="text-sm text-gray-400 mt-2">
-            Welcome, {user.name}! 👋
-          </div>
-        )}
+        <div className="text-sm text-gray-400 mt-2">
+          Get instant AI-powered code reviews! 🚀
+        </div>
       </div>
 
       {/* Main Container */}
@@ -122,9 +113,9 @@ function CodeReview({ user }) {
           <div className="flex gap-3 mt-6">
             <button
               onClick={reviewCode}
-              disabled={isLoading || !user}
+              disabled={isLoading}
               className={`flex-1 py-3 rounded-xl text-white font-bold text-lg shadow-lg transition duration-300 transform hover:scale-105 ${
-                isLoading || !user
+                isLoading
                   ? 'bg-gray-600 cursor-not-allowed'
                   : 'bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:to-indigo-500'
               }`}
@@ -139,14 +130,6 @@ function CodeReview({ user }) {
               🗑️ Clear
             </button>
           </div>
-
-          {!user && (
-            <div className="mt-4 p-3 bg-yellow-900/20 border border-yellow-600/30 rounded-lg">
-              <p className="text-yellow-400 text-sm">
-                ⚠️ Please log in to use the code review feature
-              </p>
-            </div>
-          )}
         </div>
 
         {/* Review Output Section */}

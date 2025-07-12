@@ -1,22 +1,20 @@
 # 🧠 AI Code Reviewer - Production Ready
 
-An AI-powered code reviewer built with React, Node.js, Express, MongoDB, and Tailwind CSS. This production-ready application allows developers to upload or type code and receive smart, AI-generated suggestions, improvements, and feedback — all with enterprise-grade security and performance.
+An AI-powered code reviewer built with React, Node.js, Express, and Tailwind CSS. This production-ready application allows developers to upload or type code and receive smart, AI-generated suggestions, improvements, and feedback — all with enterprise-grade security and performance.
 
 ## 🚀 Features
 
-- 🔐 **Secure Authentication** with JWT tokens and bcrypt password hashing
-- 🗄️ **MongoDB Database** for persistent user data storage
 - 🌐 **Real-time Code Review** via Google Gemini AI
 - ✍️ **Syntax Highlighted Editor** with `react-simple-code-editor` and `Prism.js`
 - 📂 **File Upload Support** for `.js`, `.py`, `.cpp`, etc.
 - 💬 **Readable Markdown Feedback** from AI
-- 🔒 **Protected Routes** with middleware authentication
 - 🛡️ **Security Features** including rate limiting, input validation, and CORS
-- 🧑‍💻 **User Profiles** with session persistence
 - 🌙 **Dark Mode UI**
 - 🎨 **Responsive & Dynamic Design** with Tailwind CSS
 - 📊 **Health Check Endpoints**
 - 🔄 **Error Handling** and logging
+- 🚀 **No Authentication Required** - Start reviewing code immediately!
+- 💾 **Stateless Architecture** - No database required
 
 ## 🏗️ Architecture
 
@@ -24,18 +22,14 @@ An AI-powered code reviewer built with React, Node.js, Express, MongoDB, and Tai
 AI_Code_Reviewer-main/
 ├── backend/
 │   ├── src/
-│   │   ├── config/          # Database configuration
 │   │   ├── controllers/     # Business logic
-│   │   ├── middleware/      # Auth, validation, security
-│   │   ├── models/          # MongoDB schemas
+│   │   ├── middleware/      # Validation, security
 │   │   ├── routes/          # API endpoints
 │   │   └── services/        # AI integration
-│   ├── scripts/             # Admin creation script
-│   ├── Dockerfile           # Backend Dockerfile (optional)
-│   └── server.js            # Server entry point
+│   ├── server.js            # Server entry point
+│   └── package.json         # Backend dependencies
 ├── frontend/
 │   ├── src/                 # React source code
-│   ├── Dockerfile           # Frontend Dockerfile (optional)
 │   ├── package.json         # Frontend dependencies
 │   └── vite.config.js       # Vite config
 ├── .gitignore
@@ -46,9 +40,6 @@ AI_Code_Reviewer-main/
 
 ### Backend
 - **Node.js** with Express.js
-- **MongoDB** with Mongoose ODM
-- **JWT** for authentication
-- **bcryptjs** for password hashing
 - **express-validator** for input validation
 - **helmet** for security headers
 - **express-rate-limit** for rate limiting
@@ -65,7 +56,6 @@ AI_Code_Reviewer-main/
 
 ### Prerequisites
 - Node.js (v18 or higher)
-- MongoDB (local or MongoDB Atlas)
 - Google Gemini API key
 
 ### 1. Clone and Setup
@@ -82,10 +72,7 @@ cd backend
 npm install
 
 # Create environment file
-cp .env.example .env # (if you have a template, otherwise create manually)
-
-# Edit .env with your configuration
-# See below for required variables
+# Create .env file manually with your configuration
 ```
 
 ### 3. Frontend Setup
@@ -107,14 +94,6 @@ echo VITE_API_URL=http://localhost:3000 > .env
 # Server Configuration
 PORT=3000
 NODE_ENV=development
-
-# MongoDB Configuration
-MONGODB_URI=mongodb://localhost:27017/ai_code_reviewer
-MONGODB_URI_PROD=mongodb+srv://username:password@cluster.mongodb.net/ai_code_reviewer
-
-# JWT Configuration
-JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
-JWT_EXPIRES_IN=7d
 
 # AI API Configuration
 GEMINI_API_KEY=your-gemini-api-key-here
@@ -142,15 +121,7 @@ npm run dev
 
 ## 🔐 Security Features
 
-### Authentication & Authorization
-- JWT-based authentication with configurable expiration
-- Password hashing with bcrypt (12 salt rounds)
-- Protected routes with middleware
-- User role management (user/admin)
-
 ### Input Validation
-- Email format validation
-- Password strength requirements
 - Code length limits
 - XSS protection
 
@@ -160,22 +131,10 @@ npm run dev
 - Rate limiting (100 requests per 15 minutes)
 - Request size limits
 
-### Database Security
-- MongoDB injection protection via Mongoose
-- Input sanitization
-- Secure connection strings
-
 ## 📊 API Endpoints
 
-### Authentication
-- `POST /api/auth/signup` - User registration
-- `POST /api/auth/login` - User login
-- `GET /api/auth/profile` - Get user profile (protected)
-- `PUT /api/auth/profile` - Update profile (protected)
-- `PUT /api/auth/change-password` - Change password (protected)
-
 ### AI Code Review
-- `POST /api/ai/review` - Submit code for review (protected)
+- `POST /api/ai/review` - Submit code for review
 
 ### Health Check
 - `GET /health` - Server health status
@@ -198,35 +157,31 @@ npm run lint
 
 ## 📈 Monitoring & Logging
 
-- Health check endpoint: `/health`
-- Error logging with stack traces
-- Custom application logs
+- Global error handling with detailed error messages
+- Health check endpoint for monitoring
+
+## 🎯 Usage
+
+1. **Navigate to the Review Page**: Click "Review" in the navigation
+2. **Upload or Type Code**: Either upload a file or type code directly in the editor
+3. **Get AI Review**: Click "Review Code" to receive instant feedback
+4. **Review Results**: View detailed analysis, error detection, and improvement suggestions
 
 ## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Add tests if applicable
+4. Test thoroughly
 5. Submit a pull request
 
 ## 📄 License
 
 This project is licensed under the MIT License.
 
-## 🆘 Support
+## 🙏 Acknowledgments
 
-For support and questions:
-- Create an issue in the repository
-- Check the documentation
-- Review the API endpoints
-
----
-
-**Note**: This is a production-ready application with enterprise-grade security features. Make sure to:
-- Change default secrets in production
-- Use HTTPS in production
-- Set up proper monitoring and logging
-- Regular security updates
-- Database backups
+- Google Gemini AI for providing the AI capabilities
+- The React and Node.js communities for excellent tooling
+- Tailwind CSS for the beautiful UI framework
 

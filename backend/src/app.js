@@ -1,17 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
-const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
-const connectDB = require('./config/database');
 const aiRoute = require('./routes/ai.routes');
-const authRoute = require('./routes/auth.routes');
-const adminRoute = require('./routes/admin.routes');
-
-// Connect to database
-connectDB();
 
 const app = express();
 
@@ -34,17 +27,12 @@ app.use(limiter);
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production' 
     ? process.env.CORS_ORIGIN_PROD 
-    : process.env.CORS_ORIGIN || 'http://localhost:5173',
+    : ['http://localhost:5173', 'http://localhost:4173', 'http://localhost:3000'],
   credentials: true,
   optionsSuccessStatus: 200
 };
 
 app.use(cors(corsOptions));
-
-// Logging middleware
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
-}
 
 // Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
@@ -60,9 +48,7 @@ app.get("/health", (req, res) => {
 });
 
 // API routes
-app.use('/api/auth', authRoute);
 app.use('/api/ai', aiRoute);
-app.use('/api/admin', adminRoute);
 
 // 404 handler
 app.use('*', (req, res) => {
